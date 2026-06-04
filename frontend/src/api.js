@@ -1,3 +1,3 @@
 //Backend Endpoint
 //One local another production backend
-export const endpoint = 'http://localhost:3500/system-monitor/v1' || ''
+export const endpoint = 'http://localhost:3500/system-monitor/v1' || 'https://api.monitor.skirill.org'

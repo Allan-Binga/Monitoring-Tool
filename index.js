@@ -8,7 +8,8 @@ app.use(express.json())
 
 //Cors
 const allowedOrigins = [
-  "http://localhost:5173"
+  "http://localhost:5173",
+  "https://monitor.skirill.org"
 
 ];
 
