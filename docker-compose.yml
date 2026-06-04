@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: .
+    container_name: system-backend
+    network_mode: "host"
+    environment:
+      NODE_ENV: development
+    volumes:
+      - /home/binga/.pm2:/root/.pm2
+
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: system-frontend
+    ports:
+      - "5173:80"
+
+    depends_on:
+      - backend
