@@ -58,12 +58,11 @@ jobs:
 
             # 2. Pull down the new layers that were just pushed to Docker Hub
             echo "Pulling newest images..."
-            docker compose pull allanbinga/monitoring-tool-backend:latest
-            docker compose pull allanbinga/monitoring-tool-frontend:latest
+            docker compose pull
 
             # 3. Recreate the containers seamlessly using the new image layers
             echo "Updating containers..."
-            docker compose up -d
+            docker compose up -d --force-recreate
 
             # 4. Remove older, unused image layers to keep your VPS disk clean
             echo "Pruning dangling images..."
