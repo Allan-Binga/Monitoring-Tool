@@ -38,6 +38,8 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: allanbinga/monitoring-tool-frontend:latest
+          build-args: |
+            VITE_BACKEND_ENDPOINT=https://api.monitor.skirill.org/system-monitor/v1
 
   deploy:
     needs: build-and-push
