@@ -12,6 +12,8 @@ COPY . .
 ARG VITE_BACKEND_ENDPOINT
 ENV VITE_BACKEND_ENDPOINT=$VITE_BACKEND_ENDPOINT
 
+RUN echo "Backend endpoint: $VITE_BACKEND_ENDPOINT"
+
 RUN npm run build
 
 # production stage
