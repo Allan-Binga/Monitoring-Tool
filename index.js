@@ -1,6 +1,8 @@
 const express = require("express")
 const cors = require("cors")
 const metricsRoute = require("./routes/metrics")
+const pm2Route = require("./routes/pm2")
+const dockerRoute = require("./routes/docker")
 
 const app = express();
 
@@ -15,10 +17,6 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    // console.log("Incoming Origin:", origin);
-    // console.log("Method:", this?.req?.method);
-    // console.log("URL:", this?.req?.url);
-
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -33,6 +31,8 @@ app.use(cors(corsOptions))
 
 //Routes
 app.use("/system-monitor/v1/metrics", metricsRoute)
+app.use("/system-monitor/v1/pm2", pm2Route)
+app.use("/system-monitor/v1/docker", dockerRoute)
 
 // Start the server
 if (process.env.NODE_ENV !== "test") {
