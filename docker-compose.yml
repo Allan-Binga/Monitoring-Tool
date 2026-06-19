@@ -5,13 +5,17 @@ services:
     network_mode: "host"
     environment:
       NODE_ENV: development
+      PM2_HOME: /root/.pm2
+      HOST_PM2_HOME: /home/binga/.pm2 
     volumes:
       - /home/binga/.pm2:/root/.pm2
-
+      - /var/run/docker.sock:/var/run/docker.sock
 
   frontend:
     build:
       context: ./frontend
+      args:
+        VITE_BACKEND_ENDPOINT: http://localhost:3500/system-monitor/v1
     container_name: system-frontend
     ports:
       - "5173:80"

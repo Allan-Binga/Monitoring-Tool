@@ -10,75 +10,58 @@ const connectPm2 = () =>
         })
     })
 
+//Remap PM2 path for docker containers
+const remapPm2Path = (hostPath) => {
+    if (!hostPath) return hostPath
+    const hostPm2Home = process.env.HOST_PM2_HOME
+    const containerPm2Home = process.env.PM2_HOME || '/root/.pm2'
+    if (hostPm2Home) {
+        return hostPath.replace(hostPm2Home, containerPm2Home)
+    }
+    // Fallback: replace any /home/<user>/.pm2 pattern
+    return hostPath.replace(/^\/home\/[^/]+\/\.pm2/, containerPm2Home)
+}
+
 //View App Details including logs(Single App)
 const appDetails = async (req, res) => {
     try {
         const { name } = req.params
-
         await connectPm2()
 
         pm2.describe(name, async (err, processDescription) => {
             pm2.disconnect()
 
             if (err) {
-                return res.status(500).json({
-                    success: false,
-                    message: err.message
-                })
+                return res.status(500).json({ success: false, message: err.message })
             }
-
             if (!processDescription.length) {
-                return res.status(404).json({
-                    success: false,
-                    message: "Application not found"
-                })
+                return res.status(404).json({ success: false, message: "Application not found" })
             }
 
             const app = processDescription[0]
-
-            let logs = {
-                stdout: [],
-                stderr: []
-            }
+            const logs = { stdout: [], stderr: [] }
 
             try {
                 if (app.pm2_env.pm_out_log_path) {
-                    const stdout = await fs.readFile(
-                        app.pm2_env.pm_out_log_path,
-                        "utf8"
-                    )
-
-                    logs.stdout = stdout
-                        .split("\n")
-                        .slice(-100)
+                    const resolvedPath = remapPm2Path(app.pm2_env.pm_out_log_path)
+                    const stdout = await fs.readFile(resolvedPath, "utf8")
+                    logs.stdout = stdout.split("\n").slice(-100)
                 }
-
                 if (app.pm2_env.pm_err_log_path) {
-                    const stderr = await fs.readFile(
-                        app.pm2_env.pm_err_log_path,
-                        "utf8"
-                    )
-
-                    logs.stderr = stderr
-                        .split("\n")
-                        .slice(-100)
+                    const resolvedPath = remapPm2Path(app.pm2_env.pm_err_log_path)
+                    const stderr = await fs.readFile(resolvedPath, "utf8")
+                    logs.stderr = stderr.split("\n").slice(-100)
                 }
-            } catch (_) { }
+            } catch (logErr) {
+                // Log files may not exist yet — non-fatal
+                console.warn("Could not read PM2 log files:", logErr.message)
+            }
 
-            return res.status(200).json({
-                success: true,
-                app,
-                logs
-            })
+            return res.status(200).json({ success: true, app, logs })
         })
-
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        })
+        return res.status(500).json({ success: false, message: error.message })
     }
-
 }
 
 //Start App
