@@ -196,7 +196,7 @@ function Home() {
 
                             <div className="mb-4">
                                 <p className="font-semibold text-gray-500 text-sm tracking-wider uppercase">
-                                    Disk Storage
+                                    Disk Usage
                                 </p>
                                 <h3 className="font-semibold text-2xl text-black">{vpsMetrics?.disk?.usagePercent}
                                     <span className="text-2xl font-normal">
