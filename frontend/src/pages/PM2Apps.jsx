@@ -76,7 +76,7 @@ function Apps() {
                         <div className="bg-white border border-gray-300 px-3 py-6 rounded-xs transition-colors flex flex-col justify-between">
                             <div>
                                 <div className="flex justify-between items-start mb-2">
-                                    <p className="text-gray-600 text-sm font-medium uppercase">Total Applications</p>
+                                    <p className="text-gray-600 text-sm font-medium uppercase">Applications</p>
                                     <Grip className="text-sky-800" />
                                 </div>
                                 <p className="text-black text-2xl font-bold">{summary.totalApps}</p>

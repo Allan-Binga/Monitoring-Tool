@@ -27,18 +27,18 @@ function Sidebar({ isOpen, setIsOpen }) {
             label: "Docker",
             icon: Container,
             path: "/apps/docker"
+        },
+        {
+            label: "Databases",
+            icon: Database,
+            path: "/databases"
+        },
+        {
+            label: "Alerts",
+            icon: Bell,
+            path: "/alerts",
+            badge: 12
         }
-        // {
-        //     label: "Databases",
-        //     icon: Database,
-        //     path: "/databases"
-        // },
-        // {
-        //     label: "Alerts",
-        //     icon: Bell,
-        //     path: "/alerts",
-        //     badge: 12
-        // },
         // {
         //     label: "Settings",
         //     icon: Settings,
