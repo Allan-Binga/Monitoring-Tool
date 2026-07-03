@@ -244,26 +244,26 @@ function DockerApps() {
         <div className="min-h-screen bg-slate-50">
             <Sidebar />
             <ContainerDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} containerId={selectedContainerId} onContainerChanged={fetchContainers} />
-            <main className="flex-1 overflow-y-auto p-6">
+            <main className="flex-1 overflow-y-auto p-4 md:p-6">
                 <div className="mx-auto max-w-7xl space-y-6">
                     {/* Page Header */}
-                    <div className="flex justify-between items-end mb-4">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                         <div>
                             <h2 className="text-2xl font-semibold">Docker Containers</h2>
                             <p className="text-sm text-gray-600 mt-1">Monitor and manage docker containers running on the server</p>
                         </div>
                         <div className="flex items-center gap-3">
-                            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-xs text-sm font-medium-500 hover:border-primary transition-all active:scale-95" onClick={async () => {
+                            <button className="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-sky-800 border border-gray-300 rounded-xs text-white text-sm font-medium-500 hover:bg-sky-900 hover:border-sky-500 transition-all active:scale-95 cursor-pointer" onClick={async () => {
                                 await fetchContainers()
                             }}>
-                                <LucideRotateCcwSquare/>
+                                <LucideRotateCcwSquare size={16} />
                                 Refresh
                             </button>
                         </div>
                     </div>
 
                     {/* <!-- Stats Overview (Grid) --> */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-4">
                         {/* <!-- Card 1 --> */}
                         <div className="bg-white border border-gray-300 px-3 py-6 rounded-xs transition-colors flex flex-col justify-between">
                             <div>
@@ -271,7 +271,7 @@ function DockerApps() {
                                     <p className="text-gray-600 text-sm font-medium">Running</p>
                                     <Ship />
                                 </div>
-                                <p className="text-black text-2xl font-bold">
+                                <p className="text-black text-xl sm:text-2xl font-bold">
                                     {summary.runningApps}
                                 </p>
                             </div>
@@ -284,7 +284,7 @@ function DockerApps() {
                                     <p className="text-gray-600 text-sm font-medium">Stopped</p>
                                     <CircleX />
                                 </div>
-                                <p className="text-black text-2xl font-bold">
+                                <p className="text-black text-xl sm:text-2xl font-bold">
                                     {summary.stoppedApps}
                                 </p>
                             </div>
@@ -297,7 +297,7 @@ function DockerApps() {
                                     <p className="text-gray-600 text-sm font-medium">Created</p>
                                     <PackagePlusIcon />
                                 </div>
-                                <p className="text-black text-2xl font-bold">
+                                <p className="text-black text-xl sm:text-2xl font-bold">
                                     {summary.createdApps}
                                 </p>
                             </div>
@@ -311,7 +311,7 @@ function DockerApps() {
                                     <p className="text-gray-600 text-sm font-medium">Exposed Ports</p>
                                     <EthernetPort />
                                 </div>
-                                <p className="text-black text-2xl font-bold">
+                                <p className="text-black text-xl sm:text-2xl font-bold">
                                     {summary.exposedPorts}
                                 </p>
                             </div>
@@ -344,119 +344,123 @@ function DockerApps() {
                             <input className="w-full bg-white border border-gray-300 rounded-md pl-10 pr-4 py-1.5 text-md focus:ring-sky-700 focus:border-gray-100 placeholder:text-sm" placeholder="Search containers..." type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         </div>
                     </div>
+
                     {/* Container Table */}
                     <div className="border border-gray-300 rounded-xs overflow-hidden mt-4">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="bg-gray-200 border border-gray-200">
-                                    <th className="px-6 py-4 text-xs text-gray-700 font-semibold">Status</th>
-                                    <th className="px-6 py-4 text-xs text-gray-700 font-semibold">Container Name</th>
-                                    <th className="px-6 py-4 text-xs text-gray-700 font-semibold">Image</th>
-                                    <th className="px-6 py-4 text-xs text-gray-700 font-semibold">Ports</th>
-                                    <th className="px-6 py-4 text-xs text-gray-700 font-semibold">Created</th>
-                                    <th className="px-6 py-4 text-xs text-gray-700 font-semibold text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-200">
-                                {displayedContainers.map((container) => (
-                                    <tr
-                                        onClick={() => handleViewContainer(container)}
-                                        key={container.id}
-                                        className="bg-white hover:bg-gray-50 hover:text-semibold transition-colors group">
-                                        <td className="px-6 py-4">
-                                            <span
-                                                className={`px-2 py-1 rounded-full text-xs ${getStatusStyles(container.state)}`}
-                                            >
-                                                {container.state.charAt(0).toUpperCase() + container.state.slice(1).toLowerCase()}
-                                            </span>
-
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <div className="flex flex-col">
-                                                {/* Open Docker Details Drawer */}
-                                                <button className="font-mono font-semibold text-xs text-sky-800 hover:underline text-left">{truncateText(container.name || container.name, 20)}</button>
-                                                <span className="font-mono-md text-[11px] text-gray-500">{truncateText(container.id || container.Id, 12)}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-6 py-4  text-xs font-normal text-gray-600">{truncateText(container.image, 20)}</td>
-                                        <td className="px-6 py-4 font-normal text-xs text-gray-600">{renderPorts(container.ports)}</td>
-                                        <td className="px-6 py-4 font-normal text-xs text-gray-500">{formatDate(container.created)}</td>
-                                        <td className="px-6 py-4 text-right">
-                                            <div className="flex items-center justify-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
-                                                {/* View Button */}
-                                                <button
-                                                    className="group/tooltip relative p-1.5 hover:bg-gray-200 rounded-sm text-gray-500 cursor-pointer"
-                                                    onClick={() => handleViewContainer(container)}
+                        <div className="overflow-x-auto">
+                            <table className="min-w-[850px] w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="bg-gray-200 border border-gray-200">
+                                        <th className="px-3 py-2 text-xs text-gray-700 font-semibold">Status</th>
+                                        <th className="px-3 py-2 text-xs text-gray-700 font-semibold">Container Name</th>
+                                        <th className="px-3 py-2 text-xs text-gray-700 font-semibold">Image</th>
+                                        <th className="px-3 py-2 text-xs text-gray-700 font-semibold">Ports</th>
+                                        <th className="px-3 py-2 text-xs text-gray-700 font-semibold">Created</th>
+                                        <th className="px-3 py-2 text-xs text-gray-700 font-semibold text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-200">
+                                    {displayedContainers.map((container) => (
+                                        <tr
+                                            onClick={() => handleViewContainer(container)}
+                                            key={container.id}
+                                            className="bg-white hover:bg-gray-50 hover:text-semibold transition-colors group">
+                                            <td className="px-4 py-3">
+                                                <span
+                                                    className={`px-2 py-1 rounded-full text-xs ${getStatusStyles(container.state)}`}
                                                 >
-                                                    <span><Eye size={18} /></span>
-                                                    {/* Tooltip */}
-                                                    <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-sky-900 px-2 py-1 text-xs text-white transition-all group-hover/tooltip:scale-100 z-10 whitespace-nowrap">
-                                                        View Container
-                                                    </span>
-                                                </button>
+                                                    {container.state.charAt(0).toUpperCase() + container.state.slice(1).toLowerCase()}
+                                                </span>
 
-                                                {/* Play / Pause Button */}
-                                                <button
-                                                    onClick={(e) =>
-                                                        openActionModal(
-                                                            e,
-                                                            container,
-                                                            container.state === "running"
-                                                                ? "stop"
-                                                                : "start"
-                                                        )
-                                                    }
-                                                    className={`
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                <div className="flex flex-col">
+                                                    {/* Open Docker Details Drawer */}
+                                                    <button className="font-mono font-semibold text-xs text-sky-800 hover:underline text-left">{truncateText(container.name || container.name, 20)}</button>
+                                                    <span className="font-mono-md text-[11px] text-gray-500">{truncateText(container.id || container.Id, 12)}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-4 py-3  text-xs font-normal text-gray-600">{truncateText(container.image, 20)}</td>
+                                            <td className="px-4 py-3 font-normal text-xs text-gray-600">{renderPorts(container.ports)}</td>
+                                            <td className="px-4 py-3 font-normal text-xs text-gray-500">{formatDate(container.created)}</td>
+                                            <td className="px-4 py-3 text-right">
+                                                <div className="flex items-center justify-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                                                    {/* View Button */}
+                                                    <button
+                                                        className="group/tooltip relative p-1.5 hover:bg-gray-200 rounded-sm text-gray-500 cursor-pointer"
+                                                        onClick={() => handleViewContainer(container)}
+                                                    >
+                                                        <span><Eye size={18} /></span>
+                                                        {/* Tooltip */}
+                                                        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-sky-900 px-2 py-1 text-xs text-white transition-all group-hover/tooltip:scale-100 z-10 whitespace-nowrap">
+                                                            View Container
+                                                        </span>
+                                                    </button>
+
+                                                    {/* Play / Pause Button */}
+                                                    <button
+                                                        onClick={(e) =>
+                                                            openActionModal(
+                                                                e,
+                                                                container,
+                                                                container.state === "running"
+                                                                    ? "stop"
+                                                                    : "start"
+                                                            )
+                                                        }
+                                                        className={`
                                                         group/tooltip relative p-1.5 hover:bg-gray-200 rounded-sm cursor-pointer
                                                         ${container.state === "running"
-                                                            ? "text-gray-500"
-                                                            : "text-sky-700"}
+                                                                ? "text-gray-500"
+                                                                : "text-sky-700"}
                                                     `}
-                                                >
-                                                    {container.state === "running" ? (
-                                                        <>
-                                                            <Square size={18} />
-                                                            <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-sky-900 px-2 py-1 text-xs text-white transition-all group-hover/tooltip:scale-100 z-10 whitespace-nowrap">
-                                                                Stop Container
-                                                            </span>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <Play size={18} />
-                                                            <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-sky-900 px-2 py-1 text-xs text-white transition-all group-hover/tooltip:scale-100 z-10 whitespace-nowrap">
-                                                                Start Container
-                                                            </span>
-                                                        </>
-                                                    )}
-                                                </button>
+                                                    >
+                                                        {container.state === "running" ? (
+                                                            <>
+                                                                <Square size={18} />
+                                                                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-sky-900 px-2 py-1 text-xs text-white transition-all group-hover/tooltip:scale-100 z-10 whitespace-nowrap">
+                                                                    Stop Container
+                                                                </span>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <Play size={18} />
+                                                                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-sky-900 px-2 py-1 text-xs text-white transition-all group-hover/tooltip:scale-100 z-10 whitespace-nowrap">
+                                                                    Start Container
+                                                                </span>
+                                                            </>
+                                                        )}
+                                                    </button>
 
-                                                {/* Restart Button */}
-                                                <button
-                                                    onClick={(e) =>
-                                                        openActionModal(
-                                                            e,
-                                                            container,
-                                                            "restart"
-                                                        )
-                                                    }
-                                                    className="group/tooltip relative p-1.5 hover:bg-gray-200 rounded-sm text-gray-500 cursor-pointer"
-                                                >
-                                                    <RotateCw size={18} />
-                                                    {/* Tooltip */}
-                                                    <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-sky-900 px-2 py-1 text-xs text-white transition-all group-hover/tooltip:scale-100 z-10 whitespace-nowrap">
-                                                        Restart Container
-                                                    </span>
-                                                </button>
-                                            </div>
+                                                    {/* Restart Button */}
+                                                    <button
+                                                        onClick={(e) =>
+                                                            openActionModal(
+                                                                e,
+                                                                container,
+                                                                "restart"
+                                                            )
+                                                        }
+                                                        className="group/tooltip relative p-1.5 hover:bg-gray-200 rounded-sm text-gray-500 cursor-pointer"
+                                                    >
+                                                        <RotateCw size={18} />
+                                                        {/* Tooltip */}
+                                                        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-sky-900 px-2 py-1 text-xs text-white transition-all group-hover/tooltip:scale-100 z-10 whitespace-nowrap">
+                                                            Restart Container
+                                                        </span>
+                                                    </button>
+                                                </div>
 
-                                        </td>
-                                    </tr>
-                                ))}
+                                            </td>
+                                        </tr>
+                                    ))}
 
 
-                            </tbody>
-                        </table>
-                        <div className="px-6 py-4 bg-white border-t border-gray-100 flex items-center justify-between">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="px-4 md:px-6 py-4 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between bg-white border-t border-gray-200">
                             <span className="font-normal text-xs text-gray-500">
                                 Showing {startIndex + 1} -{" "}
                                 {Math.min(endIndex, filteredContainers.length)} of{" "}
@@ -492,24 +496,24 @@ function DockerApps() {
             </main>
             {confirmModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-                    <div className="w-full max-w-md bg-white rounded-md shadow-xl">
+                    <div className="w-[90%] sm:w-full max-w-sm bg-white rounded-md shadow-xl">
 
                         {/* Header */}
-                        <div className="px-6 py-4 border-b border-gray-200">
-                            <h3 className="font-semibold text-lg">
+                        <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+                            <h3 className="text-lg font-semibold">
                                 Confirm Action
                             </h3>
                         </div>
 
                         {/* Body */}
-                        <div className="p-6">
-                            <p className="text-gray-700">
+                        <div className="px-4 sm:px-6 py-5">
+                            <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
                                 Are you sure you want to{" "}
-                                <span className="font-semibold">
+                                <span className="font-semibold capitalize">
                                     {selectedAction}
                                 </span>{" "}
                                 container{" "}
-                                <span className="font-semibold">
+                                <span className="font-semibold break-all">
                                     {selectedContainer?.name}
                                 </span>
                                 ?
@@ -517,14 +521,12 @@ function DockerApps() {
                         </div>
 
                         {/* Footer */}
-                        <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200">
+                        <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 px-4 sm:px-6 py-4 border-t border-gray-200">
 
                             <button
-                                onClick={() =>
-                                    setConfirmModalOpen(false)
-                                }
+                                onClick={() => setConfirmModalOpen(false)}
                                 disabled={actionLoading}
-                                className="px-4 py-2 border border-gray-300 rounded-xs cursor-pointer hover:bg-gray-50 text-sm"
+                                className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-xs hover:bg-gray-50 text-sm cursor-pointer disabled:opacity-50"
                             >
                                 Cancel
                             </button>
@@ -533,12 +535,12 @@ function DockerApps() {
                                 onClick={handleContainerAction}
                                 disabled={actionLoading}
                                 className={`
-                                    px-4 py-2 rounded-xs text-white
+                                    w-full sm:w-auto px-4 py-2 rounded-xs text-sm text-white disabled:opacity-50 cursor-pointer
                                     ${selectedAction === "stop"
-                                        ? "bg-red-600 hover:bg-red-700 text-sm cursor-pointer"
-                                        : selectedAction === "restart"
-                                            ? "bg-amber-600 hover:bg-amber-700 text-sm rounded-xs cursor-pointer"
-                                            : "bg-sky-700 hover:bg-sky-800 text-sm rounded-xs cursor-pointer"
+                                            ? "bg-red-600 hover:bg-red-700"
+                                            : selectedAction === "restart"
+                                            ? "bg-amber-600 hover:bg-amber-700"
+                                            : "bg-sky-700 hover:bg-sky-800"
                                     }
                                 `}
                             >

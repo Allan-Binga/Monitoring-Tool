@@ -174,7 +174,7 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
             >
 
                 {/* Drawer Header */}
-                <div className="p-6 border-b border-gray-300 flex items-center justify-between bg-gray-200">
+                <div className="p-4 sm:p-6 border-b border-gray-300 flex items-center justify-between bg-gray-200">
                     <div className="flex flex-col">
                         {/* Container Name  & ID*/}
                         <h3 className="font-bold text-lg">{dockerContainer?.name}</h3>
