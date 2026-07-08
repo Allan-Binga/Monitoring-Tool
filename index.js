@@ -3,6 +3,7 @@ const cors = require("cors")
 const metricsRoute = require("./routes/metrics")
 const pm2Route = require("./routes/pm2")
 const dockerRoute = require("./routes/docker")
+const dbRoute = require("./routes/dbs")
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(cors(corsOptions))
 app.use("/system-monitor/v1/metrics", metricsRoute)
 app.use("/system-monitor/v1/pm2", pm2Route)
 app.use("/system-monitor/v1/docker", dockerRoute)
+app.use("/system-monitor/v1/db", dbRoute)
 
 // Start the server
 if (process.env.NODE_ENV !== "test") {

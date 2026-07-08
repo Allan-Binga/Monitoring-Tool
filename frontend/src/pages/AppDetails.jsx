@@ -140,13 +140,13 @@ function AppDetails() {
     return (
         <div className="min-h-screen bg-slate-50">
             <Sidebar />
-            <main className="flex-1 overflow-y-auto p-6">
+            <main className="flex-1 overflow-auto p-4 sm:p-6">
                 <div className="mx-auto max-w-7xl space-y-6">
                     {/* Page Header */}
-                    <div className="flex justify-between items-end mb-4">
+                    <div className="mb-4 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                         <div className="flex flex-col gap-1">
                             {/* Row wrapper to keep the title and online tag side-by-side */}
-                            <div className="flex items-center gap-3">
+                            <div className="flex flex-wrap items-center gap-3">
                                 <h2 className="text-2xl font-semibold">{app.name}</h2>
                                 <span className="px-1.5 py-0.5 bg-green-50 text-green-700 text-xs font-medium rounded-full border border-green-200 flex items-center gap-1.5">
                                     <span className="w-1.5 h-1.5 bg-green-600 rounded-full animate-pulse"></span>
@@ -156,7 +156,7 @@ function AppDetails() {
 
                             <p className="text-sm text-gray-600">PM2 Application Details</p>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
 
                             {/* Restart */}
                             <button
@@ -164,7 +164,7 @@ function AppDetails() {
                                     setSelectedAction("restart")
                                     setConfirmModalOpen(true)
                                 }}
-                                className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-xs text-sm text-gray-800 font-normal hover:border-sky-400 hover:bg-sky-50 transition-all active:scale-95 cursor-pointer"
+                                className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-sky-800 border border-gray-300 rounded-xs text-white text-sm font-medium-500 hover:bg-sky-900 hover:border-sky-800 transition-all active:scale-95 cursor-pointer"
                             >
                                 <RotateCw size={14} />
                                 Restart
@@ -177,7 +177,7 @@ function AppDetails() {
                                         setSelectedAction("stop")
                                         setConfirmModalOpen(true)
                                     }}
-                                    className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-xs text-sm text-red-500 font-normal hover:border-red-300 hover:bg-red-800 hover:text-white transition-all active:scale-95 cursor-pointer"
+                                    className="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-red-800 border border-gray-300 rounded-xs text-white text-sm font-medium-500 hover:bg-red-900 hover:border-red-800 transition-all active:scale-95 cursor-pointer"
                                 >
                                     <Square size={14} />
                                     Stop
@@ -202,7 +202,7 @@ function AppDetails() {
                     </div>
 
                     {/* <!-- Quick Stats --> */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-4">
                         {/* <!-- Card 1: CPU Usage --> */}
                         <div className="bg-white border border-gray-300 px-3 py-4 rounded-xs transition-colors flex flex-col justify-between">
                             <div>
@@ -262,7 +262,7 @@ function AppDetails() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 gap-6">
                         {/* Information Card */}
                         <div className="lg:col-span-1 bg-white border border-slate-200 rounded-sm overflow-hidden h-fit">
                             <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
@@ -274,14 +274,14 @@ function AppDetails() {
                             </div>
 
                             <div className="p-6 space-y-5">
-                                <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                                <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between py-1 border-b border-slate-50">
                                     <span className="text-sm text-gray-600">Name</span>
                                     <span className="font-mono text-sm font-medium">
                                         {app.name}
                                     </span>
                                 </div>
 
-                                <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                                <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between py-1 border-b border-slate-50">
                                     <span className="text-sm text-gray-600">PID</span>
 
                                     <span className="bg-slate-100 px-2 py-0.5 rounded text-sm font-mono">
@@ -289,7 +289,7 @@ function AppDetails() {
                                     </span>
                                 </div>
 
-                                <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                                <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between py-1 border-b border-slate-50">
                                     <span className="text-sm text-gray-600">Status</span>
 
                                     <span className="inline-flex items-center gap-1 text-green-700 font-medium">
@@ -297,7 +297,7 @@ function AppDetails() {
                                     </span>
                                 </div>
 
-                                <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                                <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between py-1 border-b border-slate-50">
                                     <span className="text-sm text-gray-600">Node Version</span>
 
                                     <span className="font-mono text-sm">
@@ -305,7 +305,7 @@ function AppDetails() {
                                     </span>
                                 </div>
 
-                                <div className="flex justify-between items-center py-1 border-b border-slate-50">
+                                <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between py-1 border-b border-slate-50">
                                     <span className="text-sm text-gray-600">Execution Mode</span>
 
                                     <span className="font-mono text-sm">
@@ -319,15 +319,18 @@ function AppDetails() {
                                     </span>
                                 </div>
 
-                                <div className="bg-slate-50 p-3 rounded border border-slate-200 flex items-center justify-between">
-                                    <span className="font-mono text-sm text-gray-600 truncate">
+                                <div className="bg-slate-50 p-3 rounded border border-slate-200 flex items-center gap-3">
+                                    <span
+                                        className="flex-1 min-w-0 font-mono text-sm text-gray-600 truncate"
+                                        title={app.cwd}
+                                    >
                                         {app.cwd}
                                     </span>
 
                                     <Copy
                                         size={16}
                                         onClick={() => navigator.clipboard.writeText(app.cwd)}
-                                        className="text-slate-400 cursor-pointer hover:text-slate-700"
+                                        className="shrink-0 text-slate-400 cursor-pointer hover:text-slate-700"
                                     />
                                 </div>
                             </div>
@@ -335,9 +338,8 @@ function AppDetails() {
 
                         {/* Logs Card */}
                         <div className="lg:col-span-2 bg-white border border-slate-200 rounded-sm overflow-hidden flex flex-col">
-
                             {/* Header */}
-                            <div className="px-6 py-2 border-b border-slate-100 flex items-center justify-between">
+                            <div className="px-4 sm:px-6 py-3 border-b border-slate-100 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 
                                 <div className="flex items-center gap-3">
                                     <div className="flex items-center gap-2">
@@ -347,8 +349,7 @@ function AppDetails() {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-2">
-
+                                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                                     <div className="relative">
                                         <Search
                                             size={16}
@@ -361,7 +362,7 @@ function AppDetails() {
                                             onChange={(e) => setSearchTerm(e.target.value)}
                                             placeholder="Filter logs..."
                                             className="
-                                                w-56
+                                                w-full sm:w-56
                                                 rounded-sm
                                                 border
                                                 border-slate-200
@@ -387,7 +388,7 @@ function AppDetails() {
                             </div>
 
                             {/* Terminal */}
-                            <div className="bg-slate-950 h-[520px] overflow-y-auto font-mono text-sm">
+                            <div className="bg-slate-950 h-[400px] md:h-[520px] overflow-auto font-mono text-xs sm:text-sm">
 
                                 <div className="sticky top-0 bg-slate-900 border-b border-slate-800 px-4 py-2 flex items-center gap-2">
                                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
@@ -404,7 +405,7 @@ function AppDetails() {
                                         filteredLogs.map((log, index) => (
                                             <div
                                                 key={index}
-                                                className="flex gap-3"
+                                                className="flex gap-3 break-all"
                                             >
                                                 <span className="text-slate-500 shrink-0">
                                                     #{index + 1}
@@ -439,7 +440,7 @@ function AppDetails() {
                             </div>
 
                             {/* Footer */}
-                            <div className="border-t border-slate-200 bg-slate-50 px-6 py-3 flex items-center justify-between">
+                            <div className="border-t border-slate-200 bg-slate-50 px-4 sm:px-6 py-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 
                                 <div className="flex items-center gap-2 text-sm text-slate-600">
                                     <div className="h-2 w-2 rounded-full bg-green-500"></div>
@@ -458,7 +459,7 @@ function AppDetails() {
             </main>
             {confirmModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-                    <div className="w-full max-w-md bg-white rounded-md shadow-xl">
+                    <div className="w-[95%] max-w-md bg-white rounded-md shadow-xl">
 
                         {/* Header */}
                         <div className="px-6 py-4 border-b border-gray-200">
@@ -483,7 +484,7 @@ function AppDetails() {
                         </div>
 
                         {/* Footer */}
-                        <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200">
+                        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end px-6 py-4 border-t border-gray-200">
 
                             <button
                                 onClick={() =>

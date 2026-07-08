@@ -177,7 +177,7 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                 <div className="p-4 sm:p-6 border-b border-gray-300 flex items-center justify-between bg-gray-200">
                     <div className="flex flex-col">
                         {/* Container Name  & ID*/}
-                        <h3 className="font-bold text-lg">{dockerContainer?.name}</h3>
+                        <h3 className="font-bold text-lg truncate">{dockerContainer?.name}</h3>
                         <span className="font-mono-md text-sm text-gray-500">ID: {dockerContainer?.id?.slice(0, 12)}</span>
                     </div>
                     <button
@@ -209,10 +209,10 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                         <>
                             {/* 1. OverView Tab */}
                             {activeTab == "overview" && (
-                                <div className="p-6 space-y-6">
+                                <div className="p-4 sm:p-6 space-y-6">
                                     <section>
                                         <h4 className="font-semibold text-gray-600 uppercase tracking-narrow mb-3">Configuration</h4>
-                                        <div className="grid grid-cols-2 gap-4">
+                                        <div className="grid grid grid-cols-1 sm:grid-cols-2 gap-4 gap-4">
                                             <div className="space-y-1">
                                                 <p className="font-normal text-md text-gray-700">Image</p>
                                                 <p className="font-semibold text-sm text-black">{dockerContainer?.image}</p>
@@ -252,13 +252,13 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                                                         key={index}
                                                         className="flex items-center justify-between"
                                                     >
-                                                        <span className="text-sm">
+                                                        <span className="text-xs sm:text-sm">
                                                             {port.containerPort}/{port.protocol}
                                                         </span>
 
                                                         <ArrowRight size={16} />
 
-                                                        <span className="text-sm">
+                                                        <span className="text-xs sm:text-sm">
                                                             {port.hostPort}
                                                         </span>
                                                     </div>
@@ -284,7 +284,7 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                                                         {variable.key}
                                                     </span>
 
-                                                    <code className="bg-gray-200 px-2 py-1 rounded text-sm break-all">
+                                                    <code className="block overflow-x-auto whitespace-nowrap bg-gray-200 px-2 py-1 rounded text-xs sm:text-sm">
                                                         {variable.value}
                                                     </code>
                                                 </div>
@@ -296,14 +296,14 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
 
                             {/* 2. Metrics Tab */}
                             {activeTab == "metrics" && (
-                                <div className=" p-6 space-y-6">
+                                <div className=" p-4 sm:p-6 space-y-6">
                                     <div className="grid grid-cols-1 gap-4">
                                         {/* <!-- CPU Metric --> */}
                                         <div className="bg-white border border-gray-400 rounded-md p-4">
                                             <div className="flex justify-between items-center mb-4">
                                                 <div>
                                                     <p className="font-semibold text-sm text-gray-600 uppercase tracking-wider">CPU Usage</p>
-                                                    <p className="font-bold text-xl text-black">{metrics?.cpuPercent ?? 0}%</p>
+                                                    <p className="font-bold text-lg sm:text-xl text-black">{metrics?.cpuPercent ?? 0}%</p>
                                                 </div>
                                                 <Cpu className="text-sky-700" />
                                             </div>
@@ -323,7 +323,7 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                                             <div className="flex justify-between items-center mb-4">
                                                 <div>
                                                     <p className="font-semibold text-sm text-gray-600 uppercase tracking-wider">Memory</p>
-                                                    <p className="font-bold text-xl text-black">
+                                                    <p className="font-bold text-lg sm:text-xl text-black">
                                                         {metrics?.memory?.usageMB ?? 0} MB /
                                                         {metrics?.memory?.limitMB ?? 0} MB
                                                     </p>
@@ -345,7 +345,7 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                                             <div className="flex justify-between items-center mb-4">
                                                 <div>
                                                     <p className="font-semibold text-sm text-gray-600 uppercase tracking-wider">Network I/O</p>
-                                                    <div className="flex gap-4">
+                                                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                                                         <span className="font-semibold text-sm text-green-600 flex items-center gap-1">
                                                             <ArrowDown className="text-sm" /> {metrics?.networkIO?.rxBytes ?? 0} Bytes
                                                         </span>
@@ -369,10 +369,10 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
 
                             {/* 3. Logs Tab */}
                             {activeTab == "logs" && (
-                                <div className=" p-6 space-y-6">
+                                <div className=" p-4 sm:p-6 space-y-6">
                                     <div className="flex flex-col h-full rounded-md overflow-hidden border border-gray-400 bg-slate-950">
                                         {/* <!-- Terminal Header --> */}
-                                        <div className="px-4 py-2 bg-slate-900 border-b border-white/10 flex items-center justify-between">
+                                        <div className="px-4 py-2 bg-slate-900 border-b border-white/10 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                                             <div className="flex gap-1.5">
                                                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
                                                 <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
@@ -380,7 +380,7 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                                             </div>
                                             <div className="relative">
                                                 <Search className="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-white/40" size={12} />
-                                                <input className="bg-white/5 border-none rounded py-0.5 pl-7 pr-2 text-[11px] text-white/80 focus:ring-1 focus:ring-primary/40 w-32" placeholder="Search logs..." type="text" />
+                                                <input className="bg-white/5 border-none rounded py-0.5 pl-7 pr-2 text-[11px] text-white/80 focus:ring-1 focus:ring-primary/40 w-full sm:w-32" placeholder="Search logs..." type="text" />
                                             </div>
                                         </div>
 
@@ -405,35 +405,37 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
 
                             {/* 4. Networking Tab */}
                             {activeTab === "networking" && (
-                                <div className="p-6 space-y-6">
+                                <div className="p-4 sm:p-6 space-y-6">
+                                    {/* INTERFACE DETAILS */}
                                     <section>
                                         <h4 className="font-semibold text-gray-600 uppercase tracking-narrow mb-3">Interface Details</h4>
                                         <div className="space-y-4">
-                                            <div className="flex justify-between items-center py-2 border-b border-gray-400/30">
+                                            <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:items-center items-center py-2 border-b border-gray-400/30">
                                                 <span className="font-normal text-sm text-gray-600">Network Mode</span>
                                                 <span className="font-medium text-sm bg-gray-300 px-2 py-0.5 rounded lowercase first-letter:uppercase">
                                                     {dockerContainer?.network?.mode || "N/A"}
                                                 </span>
                                             </div>
-                                            <div className="flex justify-between items-center py-2 border-b border-gray-400/30">
+                                            <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:items-center items-center py-2 border-b border-gray-400/30">
                                                 <span className="font-normal text-sm text-gray-600">IP Address</span>
                                                 <span className="font-normal text-sm text-black">{dockerContainer?.network?.ipAddress || "N/A"}</span>
                                             </div>
-                                            <div className="flex justify-between items-center py-2 border-b border-gray-400/30">
+                                            <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:items-center items-center py-2 border-b border-gray-400/30">
                                                 <span className="font-normal text-sm text-gray-600">Gateway</span>
                                                 <span className="font-normal text-sm text-black">{dockerContainer?.network?.gateway || "N/A"}</span>
                                             </div>
-                                            <div className="flex justify-between items-center py-2 border-b border-gray-400/30">
+                                            <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:items-center items-center py-2 border-b border-gray-400/30">
                                                 <span className="font-normal text-sm text-gray-600">MAC Address</span>
                                                 <span className="font-normal text-sm text-black">{dockerContainer?.network?.macAddress || "N/A"}</span>
                                             </div>
                                         </div>
                                     </section>
 
+                                    {/* PUBLISHED PORTS */}
                                     <section>
                                         <h4 className="font-semibold text-gray-600 uppercase tracking-narrow mb-3 mt-8">Published Ports</h4>
-                                        <div className="bg-gray-100 rounded-sm overflow-hidden">
-                                            <table className="w-full text-left text-sm">
+                                        <div className="overflow-x-auto bg-gray-100 rounded-sm">
+                                            <table className="min-w-[500px] w-full text-left text-sm">
                                                 <thead className="bg-gray-300">
                                                     <tr>
                                                         <th className="px-4 py-2 font-medium text-gray-500">Host Port</th>
@@ -485,7 +487,7 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                 </div>
 
                 {/* Drawer Actions */}
-                <div className="p-6 border-t border-gray-300 bg-gray-200 flex gap-3">
+                <div className="p-4 sm:p-6 border-t border-gray-300 bg-gray-200 flex flex-col sm:flex-row gap-3">
 
                     {isRunning ? (
                         <>
