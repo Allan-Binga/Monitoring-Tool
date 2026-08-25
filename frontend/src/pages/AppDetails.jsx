@@ -7,8 +7,8 @@ import { useState, useEffect } from "react"
 import { startApp, stopApp, restartApp } from "../api/pm2"
 
 function AppDetails() {
-    const { name } = useParams()
     const navigate = useNavigate()
+    const { name } = useParams()
     const [app, setApp] = useState(null)
     const [logs, setLogs] = useState([])
     const [searchTerm, setSearchTerm] = useState("")

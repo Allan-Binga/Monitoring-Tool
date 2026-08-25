@@ -6,7 +6,8 @@ import {
     Container,
     Database,
     Grip,
-    Home
+    Home,
+    Logs
 } from "lucide-react"
 
 import { NavLink } from "react-router-dom"
@@ -38,12 +39,12 @@ function Sidebar({ isOpen, setIsOpen }) {
             icon: Bell,
             path: "/alerts",
             badge: 12
+        },
+        {
+            label: "Logs",
+            icon: Logs,
+            path: "/logs"
         }
-        // {
-        //     label: "Settings",
-        //     icon: Settings,
-        //     path: "/settings"
-        // }
     ]
 
     return (

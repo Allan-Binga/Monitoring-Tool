@@ -441,7 +441,7 @@ function DockerApps() {
                                                                 "restart"
                                                             )
                                                         }
-                                                        className="group/tooltip relative p-1.5 hover:bg-gray-200 rounded-sm text-gray-500 cursor-pointer"
+                                                        className="group/tooltip relative p-1.5 hover:bg-gray-200 text-gray-500 cursor-pointer"
                                                     >
                                                         <RotateCw size={18} />
                                                         {/* Tooltip */}

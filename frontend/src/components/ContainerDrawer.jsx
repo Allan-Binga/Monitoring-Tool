@@ -494,14 +494,14 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                             <button
                                 onClick={handleStop}
                                 disabled={actionLoading}
-                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-400 rounded-xs font-normal text-red-700 cursor-pointer hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-800 border border-gray-300 rounded-xs font-normal text-white text-sm font-medium-500 cursor-pointer hover:bg-red-900 hover:border-red-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <Square size={16} />
                                 {actionLoading ? "Stopping..." : "Stop"}
                             </button>
 
                             <button
-                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-400 rounded-xs font-semibold text-black cursor-pointer hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-sky-800 border border-gray-300 rounded-xs font-semibold text-white text-sm font-medium-500 hover:bg-sky-900 hover:border-sky-800 cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <RotateCw size={16} />
                                 Restart
@@ -512,13 +512,14 @@ function ContainerDrawer({ isOpen, onClose, containerId, onContainerChanged }) {
                             onClick={handleStart}
                             disabled={actionLoading}
                             className="
+                                bg-sky-900
                                 flex-1 flex items-center justify-center gap-2 cursor-pointer
                                 px-4 py-2
-                                border border-gray-400
+                                border border-gray-300
                                 rounded-xs
-                                font-semibold
-                                text-green-700
-                                hover:bg-green-50
+                               
+                                text-white
+                                hover:bg-sky-800
                                 transition-colors
                                 disabled:opacity-50
                                 disabled:cursor-not-allowed

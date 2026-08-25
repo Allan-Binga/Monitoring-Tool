@@ -6,6 +6,7 @@ import DockerApps from "./pages/DockerApps";
 import Database from "./pages/Database";
 import Alerts from "./pages/Alerts";
 import Home from "./pages/Home";
+import Logs from "./pages/Logs"
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Route path="/apps/pm2/:name" element={<AppDetails />} />
           <Route path="/apps/docker" element={<DockerApps />} />
           <Route path="/databases" element={<Database />} />
-           <Route path="/alerts" element={<Alerts />} />
+          <Route path="/alerts" element={<Alerts />} />
+          <Route path="/logs" element={<Logs />} />
         </Route>
       </Routes>
     </Router>
